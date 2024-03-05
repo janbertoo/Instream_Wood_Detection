@@ -1,0 +1,13 @@
+To perform the experiments, first a working version of darknet needs to be installed.
+Also the database needs to be present.
+
+1. Create a folder with a date and the experiment name
+2. Adjust the sample config file for YOLOv4 to the folder to represent your experiment
+3. In the 'create_all_txts.py' python file, add the locations of the datasets that will form either the training of the validation dataset.
+4. Run the pytohn script to create all the needed files for the YOLOv4 training process
+
+These files can be copied to a cluster.
+Copy all the '.txt' and '.data' files to the local 'darknet/data/' folder.
+Copy all the '.cfg' files to the local 'darknet/cfg/' folder.
+
+The 'runJob*.sh' scripts can be ran to perform an experiment using sbatch.
