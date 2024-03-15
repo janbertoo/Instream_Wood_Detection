@@ -1,4 +1,54 @@
 import os
+import cv2
+import numpy as np
+
+#jpgsfolder = '/home/jean-pierre/Desktop/test_merge/labeled_data_all/20201117_rotated/1pi2/labeled_20201117_1pi2_c3/jpgs'
+
+def merge_jpgs_in_folder(jpgsfolder):
+	newjpgsfolder = jpgsfolder.replace('/jpgs','/jpgs_merged')
+	
+	if os.path.exists(newjpgsfolder) == False:
+		os.mkdir(newjpgsfolder)
+
+	jpgslist = []
+	for file in os.listdir(jpgsfolder):
+		if file[-4:] == '.jpg':
+			jpgslist.append(os.path.join(jpgsfolder,file))
+
+	jpgslist.sort()
+	#print(jpgslist)
+
+	for i in range(1,len(jpgslist)-1):
+		im0 = jpgslist[i-1]
+		im1 = jpgslist[i]
+		im2 = jpgslist[i+1]
+
+		newim1 = im1.replace('/jpgs','/jpgs_merged')
+		print('Creating '+newim1)
+			
+		try:
+			
+
+			
+
+			read_im0 = cv2.imread(im0, cv2.IMREAD_GRAYSCALE)
+			read_im1 = cv2.imread(im1, cv2.IMREAD_GRAYSCALE)
+			read_im2 = cv2.imread(im2, cv2.IMREAD_GRAYSCALE)
+
+			newim_data = np.zeros((len(read_im1),len(read_im1[0]),3), np.uint8)
+
+			for i in range(len(read_im1)):
+				for j in range(len(read_im1[0])):
+					#for k in range(len(testimCOL[0][0])):
+					newim_data[i][j][0] = read_im0[i][j]
+					newim_data[i][j][1] = read_im1[i][j]
+					newim_data[i][j][2] = read_im2[i][j]
+
+			cv2.imwrite(newim1,newim_data)
+		except:
+			print(newim1+' DIDNT WORK !!!!!!!!!!!, MAYBE  AN IMAGE WAS CORRUPTED OR SOMETHING ...')
+
+#merge_jpgs_in_folder(jpgsfolder)
 
 database_base_path = '/home/jean-pierre/scratch/'
 
@@ -23,34 +73,7 @@ paths = [
     database_base_path+'unilyon_and_others/20191125_Allier1/labeled_20191125_Allier1',
     database_base_path+'unilyon_and_others/20191223_Allier2/labeled_20191223_Allier2',
     database_base_path+'unilyon_and_others/randomWoodImages/labeled_2022_randomWoodImages'
-    database_base_path+'internetVideos/canada_del_oro/labeled_2022_canada_del_oro',
-    database_base_path+'internetVideos/hikuwai_river_NZ/labeled_2023_hikuwai_river_NZ',
-    database_base_path+'internetVideos/ilfis_river/labeled_2022_ilfis_river',
-    database_base_path+'internetVideos/north_creek/labeled_20180802_north_creek',
-    database_base_path+'internetVideos/north_creek_2_plus_trabuco_creek/labeled_2022_north_creek_2_plus_trabuco_creek',
-    database_base_path+'internetVideos/north_creek_3/labeled_2022_north_creek_3',
-    database_base_path+'internetVideos/piha_valley_Auckland/labeled_piha_valley_Auckland',
-    database_base_path+'internetVideos/rio_moquegua/labeled_20190205_rio_moquegua',
-    database_base_path+'internetVideos/sihl_a_studen/labeled_2022_sihl_a_studen',
-    database_base_path+'extra_own_data/20220520_rhone_data/labeled_20220520_rhone_data',
-    database_base_path+'extra_own_data/VDN_vid_20210509_174821/labeled_VDN_vid_20210509_174821',
-    database_base_path+'extra_own_data/VDN_vid_20210509_180320/labeled_VDN_vid_20210509_180320',
-    database_base_path+'extra_own_data/dry_wood_data_VDN_2021/labeled_dry_wood_data_VDN_2021',
-    database_base_path+'extra_own_data/dry_wood_data_VDN_2022/labeled_dry_wood_data_VDN_2022'
 ]
 
-txtsFolder = 'txts'
-
-for path in paths:
-    imcount = 0
-    count = 0
-    txtsPath = os.path.join(path,txtsFolder)
-    for file in os.listdir(txtsPath):
-        imcount = imcount + 1
-        if file[-4:] == ".txt":
-            with open(os.path.join(txtsPath,file)) as f:
-                lines = f.readlines()
-                for line in lines:
-                    if line.split(' ')[0] == '0':
-                        count = count + 1
-    print(str(count)+' samples   and   '+str(imcount)+'   images->   '+path)
+for jpgsfolder in paths:
+	merge_jpgs_in_folder(jpgsfolder)

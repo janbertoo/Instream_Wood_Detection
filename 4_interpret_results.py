@@ -6,13 +6,15 @@ plt.style.use('seaborn')
 
 exportFolder = '/home/jean-pierre/ownCloud/phd/experiments_2023'
 
+curdir = os.getcwd()
+
 files = [
-    '/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20201117_3SamsungGalaxyA5.ods',
-    '/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20201119_3pi4.ods',
-    '/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20201126_4pi4_c5.ods',
-    '/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20201303_1pi4_sampled.ods',
-    '/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_2022_randomWoodImages.ods',
-    '/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20191125_Allier1.ods'
+    os.path.join(curdir,'resultsAll_20201117_3SamsungGalaxyA5.ods'),
+    os.path.join(curdir,'resultsAll_20201119_3pi4.ods'),
+    os.path.join(curdir,'resultsAll_20201126_4pi4_c5.ods'),
+    os.path.join(curdir,'resultsAll_20201303_1pi4_sampled.ods'),
+    os.path.join(curdir,'resultsAll_2022_randomWoodImages.ods'),
+    os.path.join(curdir,'resultsAll_20191125_Allier1.ods')
 ]
 
 
@@ -42,12 +44,12 @@ for file in files:
             print(kruskal)
 
 
-df1 = pd.read_excel('/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20201117_3SamsungGalaxyA5.ods')
-df2 = pd.read_excel('/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20201119_3pi4.ods')
-df3 = pd.read_excel('/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20201126_4pi4_c5.ods')
-df4 = pd.read_excel('/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20201303_1pi4_sampled.ods')
-df5 = pd.read_excel('/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_2022_randomWoodImages.ods')
-df6 = pd.read_excel('/home/jean-pierre/ownCloud/phd/experiments_2023/resultsAll_20191125_Allier1.ods')
+df1 = pd.read_excel(os.path.join(curdir,'resultsAll_20201117_3SamsungGalaxyA5.ods'))
+df2 = pd.read_excel(os.path.join(curdir,'resultsAll_20201119_3pi4.ods'))
+df3 = pd.read_excel(os.path.join(curdir,'resultsAll_20201126_4pi4_c5.ods'))
+df4 = pd.read_excel(os.path.join(curdir,'resultsAll_20201303_1pi4_sampled.ods'))
+df5 = pd.read_excel(os.path.join(curdir,'resultsAll_2022_randomWoodImages.ods'))
+df6 = pd.read_excel(os.path.join(curdir,'resultsAll_20191125_Allier1.ods'))
 
 #dfall = pd.concat(df2)
 #print(dfall)

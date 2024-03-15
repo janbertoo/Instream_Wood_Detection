@@ -57,13 +57,4 @@ print(training_data)
 #converting the list to numpy array and saving it to a file using #numpy.save
 np.save(os.path.join(pathStore,'data_in_array_greyscale_allWoods200_normalized_centered_with_cluster_data'),np.array(training_data))
 np.save(os.path.join(pathStore,'data_in_array_greyscale_allWoods200_normalized_centered_with_cluster_clusters'),clusters)
-#np.save(os.path.join(pathStore,'data_in_array_greyscale_allWoods200_normalized_centered_names'),imageNames)
 
-
-#print(np.array(training_data))
-#print(imageNames)
-#loading the saved file once again
-#saved = np.load(os.path.join(path,'features_greyscale_allWoods200.npy'))
-
-#plt.imshow(saved[0].reshape(80,80))
-#plt.imshow(np.array(training_data[0]).reshape(80,80))

@@ -6,6 +6,7 @@ from math import atan2, cos, sin, sqrt, pi
 from multiprocessing import Pool
 import shutil
 
+#the following path contains all the cropped bounding boxes
 path = '/home/jean-pierre/scratch/allWoods200/'
 newpath = '/home/jean-pierre/scratch/allWoods200_normalized_centered_rotated/'
 

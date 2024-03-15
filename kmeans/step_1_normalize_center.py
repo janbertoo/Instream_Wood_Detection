@@ -5,6 +5,7 @@ import shutil
 from multiprocessing import Pool
 #from keras.preprocessing.image import ImageDataGenerator
 
+#the following path contains all the cropped bounding boxes
 orPath = '/home/jean-pierre/scratch/allWoods200'
 newPath =  '/home/jean-pierre/scratch/allWoods200_normalized_centered'
 

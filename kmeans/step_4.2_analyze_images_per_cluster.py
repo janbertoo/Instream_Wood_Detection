@@ -2,11 +2,10 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-file = '/home/jean-pierre/ownCloud/phd/code_code_code_code_code/1MAIN_processing/KMEANS/allWoods200_normalized_centered/pictureNamesAndClusters_clus_nums_2silhouette_0.060686368282777486.npy'
+#define the numpy file to load
+file = '/home/jean-pierre/ownCloud/phd/code_code_code_code_code/1MAIN_processing/KMEANS/allWoods200_normalized_centered/pictureNamesAndClusters_clus_nums_20silhouette_0.032318450025151206.npy'
 
-file = '/home/jean-pierre/ownCloud/phd/code_code_code_code_code/1MAIN_processing/KMEANS/allWoods200_normalized_centered/pictureNamesAndClusters_clus_nums_3silhouette_0.052390812851298846.npy'
-file = '/home/jean-pierre/ownCloud/phd/code_code_code_code_code/1MAIN_processing/KMEANS/allWoods200_normalized_centered/pictureNamesAndClusters_clus_nums_4silhouette_0.05162152460398263.npy'
-file = '/home/jean-pierre/ownCloud/phd/code_code_code_code_code/1MAIN_processing/KMEANS/allWoods200_normalized_centered/pictureNamesAndClusters_clus_nums_5silhouette_0.05155117310573488.npy'
+
 
 amount_of_classes = int((file.split('nums_')[1]).split('silhouette')[0])
 print(amount_of_classes)
@@ -50,9 +49,40 @@ captureclusters = [
 ]
 
 data = np.load(file)
-
+print(data)
 datasetsWithAmount = []
 
+df = pd.DataFrame(data)
+print(df)
+
+for cluster in clusters:
+    dataframe1 = df[df[0].str.contains(cluster)]
+    print("")
+    
+    for dataset in datasets:
+        
+        dataframe2 = df[df[0].str.contains(dataset)]
+        
+        
+        merged = pd.merge(
+            dataframe1[1].value_counts().to_frame(),
+            dataframe2[1].value_counts().to_frame(),
+            left_index=True,
+            right_index=True)
+        #print(cluster+" + "+dataset+", amount of images in cluster and dataset: "+str(len(dataframe1))+", "+str(len(dataframe2)))
+        #print(stats.ks_2samp(merged.count_x, merged.count_y).statistic)
+        #print(stats.ks_2samp(merged.count_x, merged.count_y).pvalue)
+        #print(stats.ks_2samp(merged.count_x, merged.count_y).pvalue)
+        print(stats.ks_2samp(merged.count_x, merged.count_y).pvalue)
+        #if stats.ks_2samp(merged.count_x, merged.count_y).pvalue < 0.05:
+        #    print(cluster+" + "+dataset+", amount of images in cluster and dataset: "+str(len(dataframe1))+", "+str(len(dataframe2)))
+        #    print(stats.ks_2samp(merged.count_x, merged.count_y).statistic)
+        #    print(stats.ks_2samp(merged.count_x, merged.count_y).pvalue)
+
+
+
+
+'''
 #count the amount of examples per dataset
 for dataset in datasets:
     count = 0
@@ -142,6 +172,7 @@ for i in range(amount_of_classes):
             print(dataset+': 0, percentage: 0')
 
 
+
 print(' ')
 
 clustersPlusPercentage = []
@@ -228,3 +259,4 @@ dataframe2 = dfcount
 
 print(dataframe1)
 print(dataframe2)
+'''
